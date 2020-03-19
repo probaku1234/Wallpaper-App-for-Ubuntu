@@ -62,6 +62,11 @@ $('#directory').click(function () {
 });
 
 $('#start').on('click', runScript);
+$('#stop').on('click', function () {
+    if (scriptProcess != undefined) {
+        scriptProcess.kill();
+    }
+});
 
 function readFiles(directory) {
     fs.readdir(directory, function (err, files) {

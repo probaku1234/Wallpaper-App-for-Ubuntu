@@ -9,4 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const type of ['chrome', 'node', 'electron']) {
     replaceText(`${type}-version`, process.versions[type])
   }
+
+  if (process.env.NODE_ENV === 'production') {
+    document.getElementById('version').style.display = "none";
+  } else {
+    document.getElementById('version').style.display = "block";
+  }
 })
