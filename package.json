@@ -1,7 +1,7 @@
 {
-  "name": "Wallpapr-App-for-Ubuntu",
+  "name": "wallpapr-app-for-ubuntu",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Wallpaper Desktop Application for Ubuntu",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
