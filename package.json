@@ -25,7 +25,8 @@
         "zip",
         "tar.gz"
       ],
-      "icon": "icon.png"
+      "icon": "icon.png",
+      "category": "Utility"
     },
     "nsis": {
       "oneClick" : false,
