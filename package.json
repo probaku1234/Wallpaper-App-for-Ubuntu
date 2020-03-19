@@ -20,6 +20,7 @@
     "electron": "^8.1.1"
   },
   "dependencies": {
+    "is-image": "^3.0.0",
     "jquery": "^3.4.1"
   }
 }

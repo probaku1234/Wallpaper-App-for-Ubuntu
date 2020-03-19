@@ -9,10 +9,12 @@ const { dialog } = require('electron').remote;
 const path = require('path');
 const fs = require('fs');
 const process = require('child_process');
+const isImage = require('is-image');
 
 var directory = localStorage.getItem('directory') ? localStorage.getItem('directory') : undefined;
 var switchTime = parseInt(localStorage.getItem('switchTime')) ? localStorage.getItem('switchTime') : undefined;
 var scriptProcess;
+var watcher; 
 
 if (directory == undefined || switchTime == undefined) {
     $('#start').attr('disabled', true);
@@ -27,6 +29,7 @@ if (directory == undefined) {
 } else {
     $('#directoryLabel').html($('#directoryLabel').html() + directory);
     readFiles(directory);
+    watchFolder();
 }
 
 $('#quantity').change(function () {
@@ -77,11 +80,13 @@ function readFiles(directory) {
         $('#pictureList').empty();
         files.forEach(function (file) {
             console.log(file);
-            //createThumbnail(path.join(result.filePaths[0], file));
-            $('#pictureList').append('<div class="gallery">' +
-                '<a target="_blank" href="' + path.join(directory, file) + '">' +
-                '<img src="' + path.join(directory, file) + '" alt="' + file + '" width="600" height="400"' +
+            var fullFilePath = path.join(directory, file);
+            if (isImage(fullFilePath)) {
+                $('#pictureList').append('<div class="gallery">' +
+                '<a target="_blank" href="' + fullFilePath + '">' +
+                '<img src="' + fullFilePath + '" alt="' + file + '" width="600" height="400"' +
                 '</a></div>');
+            }
         });
     });
 }
@@ -98,4 +103,16 @@ function runScript() {
             console.log(stdout);
         }
     });
+}
+
+function watchFolder() {
+    if (watcher != undefined) {
+        watcher.close();
+    }
+    watcher = fs.watch(directory, (eventType, filename) => {
+        console.log(eventType);
+        console.log(filename);
+        readFiles(directory);
+        runScript();
+    })
 }

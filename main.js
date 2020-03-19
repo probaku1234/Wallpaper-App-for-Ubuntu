@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Tray, Menu } = require('electron')
 const path = require('path')
-var iconPath = path.join(__dirname, 'icon.png')
+const iconPath = path.join(__dirname, 'icon.png')
 let mainWindow;
 let appIconTray;
 
